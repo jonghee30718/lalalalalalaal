@@ -29,4 +29,8 @@ for index, row in filtered_df.iterrows():
 
     fig, ax = plt.subplots()
     ax.bar(satisfaction_labels, values, color="cornflowerblue")
-    ax.set_ylim(0, 100_
+    ax.set_ylim(0, 100)  # ✅ 여기 오타 수정됨!
+    ax.set_ylabel("Percentage (%)")
+    ax.set_xlabel("Satisfaction Level")
+    ax.set_title(f"{row['특성별(2)']} - Satisfaction")
+    st.pyplot(fig)
