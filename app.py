@@ -5,16 +5,20 @@ import seaborn as sns
 
 st.title("성취에 대한 만족도 시각화")
 
-# CSV 파일 읽기 (파일명 정확히 맞춰야 함)
-df = pd.read_csv("성취에_대한_만족도__19세_이상_인구__20250605123253.csv")
+# 한글 CSV 읽기 - 인코딩 문제 해결
+try:
+    df = pd.read_csv("성취에_대한_만족도__19세_이상_인구__20250605123253.csv", encoding='utf-8-sig')
+except UnicodeDecodeError:
+    df = pd.read_csv("성취에_대한_만족도__19세_이상_인구__20250605123253.csv", encoding='cp949')
 
-# 컬럼명 확인 (간단히 상위 5행만 보기)
+# 데이터 미리보기
 st.subheader("데이터 미리보기")
 st.write(df.head())
 
-# 시각화
+# 시각화 기준 선택
 option = st.selectbox("분석 기준을 선택하세요", ["성별", "연령대"])
 
+# 컬럼 존재 여부 확인 후 시각화
 if option in df.columns:
     st.subheader(f"{option}별 성취 만족도 평균")
     fig, ax = plt.subplots()
